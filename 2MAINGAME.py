@@ -260,7 +260,7 @@ def play_stage(stage):
         # --- Vẽ ---
         SCREEN.blit(BG, (0,0))
         draw_text_center(SCREEN, f"Stage {stage.round}", font_big, (200,200,0), (SCREEN_W//2, 80))
-        draw_text_multiline(SCREEN, stage.status, font_small, (255, 255, 255), (SCREEN_W // 2, 150))
+        draw_text_multiline(SCREEN, stage.status, font_small, (255, 215, 255), (SCREEN_W // 2, 125))
         draw_text_center(SCREEN, f"Lượt còn lại: {stage.turn}", font_small, (255,255,0), (SCREEN_W//2, 200))
         draw_text_center(SCREEN, f"Tiền: {money_global.thong_bao()}", font_small, "Green", (SCREEN_W//2, 230))
 
