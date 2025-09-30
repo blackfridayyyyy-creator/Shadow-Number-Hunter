@@ -76,7 +76,7 @@ class Hai_khoang(Stage):    #dùng cho màn 4
             return None
 
     #Lưu ý nhớ truyền tham số Y,Y2 qua kt_so trước rồi bắt đầu dùng hàm so sánh
-        def so_sanh(self,Y,Y2):      #override lại hàm so_sanh ở lớp cha
+    def so_sanh(self,Y,Y2):      #override lại hàm so_sanh ở lớp cha
 
         if Y is None or Y2 is None:  # nhập không hợp lệ
             self.status = "Bạn phải nhập đủ 2 số nguyên: <A><space><B>!"
@@ -478,5 +478,4 @@ class Hint():
                 self.message.append(f"Được +{F//2}lượt")
             else:
                 self.message.append("Ngoài số tiền cho phép")
-
         return "\n".join(self.message)
