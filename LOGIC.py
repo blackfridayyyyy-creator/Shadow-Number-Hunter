@@ -76,7 +76,7 @@ class Hai_khoang(Stage):    #dùng cho màn 4
             return None
 
     #Lưu ý nhớ truyền tham số Y,Y2 qua kt_so trước rồi bắt đầu dùng hàm so sánh
-    def so_sanh(self,Y,Y2):      #override lại hàm so_sanh ở lớp cha
+        def so_sanh(self,Y,Y2):      #override lại hàm so_sanh ở lớp cha
 
         if Y is None or Y2 is None:  # nhập không hợp lệ
             self.status = "Bạn phải nhập đủ 2 số nguyên: <A><space><B>!"
@@ -89,17 +89,17 @@ class Hai_khoang(Stage):    #dùng cho màn 4
         else:
             # Phân loại trường hợp để thông báo:
             arr = [0, 0, 0]
-            # arr[0]: số lần người chơi đoán nhỏ hơn y/y2.
-            # arr[1]: số lần đoán bằng y/y2.
-            # arr[2]: số lần đoán lớn hơn y/y2.
-            if self.X < Y:
+            # arr[0]: số lần người chơi đoán nhỏ hơn x/x2.
+            # arr[1]: số lần đoán bằng x/x2.
+            # arr[2]: số lần đoán lớn hơn x/x2.
+            if self.X > Y:
                 arr[0] += 1
             elif self.X == Y:
                 arr[1] += 1
             else:
                 arr[2] += 1
 
-            if self.X2 < Y2:
+            if self.X2 > Y2:
                 arr[0] += 1
             elif self.X2 == Y2:
                 arr[1] += 1
@@ -107,11 +107,15 @@ class Hai_khoang(Stage):    #dùng cho màn 4
                 arr[2] += 1
 
             #Các loại thông báo:
-            if arr[0] == 2:
-                self.status = f"Cả {Y} và {Y2} đều nhỏ hơn số cần đoán"
-
-            elif arr[2] == 2:
+            if arr[2] == 2:  # cả hai số đều lớn hơn
+                self.right = max(self.left, min(Y - 1, self.right))
+                self.right2 = max(self.left2, min(Y2 - 1, self.right2))
                 self.status = f"Cả {Y} và {Y2} đều lớn hơn số cần đoán"
+
+            elif arr[0] == 2:  # cả hai số đều nhỏ hơn
+                self.left = min(self.right, max(Y + 1, self.left))
+                self.left2 = min(self.right2, max(Y2 + 1, self.left2))
+                self.status = f"Cả {Y} và {Y2} đều nhỏ hơn số cần đoán"
 
             else:
                 self.status = np.random.choice(
@@ -121,21 +125,6 @@ class Hai_khoang(Stage):    #dùng cho màn 4
 
             if arr[1] == 1:
                 self.status +="\nĐang có 1 số đúng"
-
-            if self.X < Y:
-                self.right = min(Y-1, self.right)
-            elif self.X > Y:
-                self.left = max(Y+1, self.left)
-
-            if self.X2 < Y2:
-                self.right2 = min(Y2-1, self.right2)
-            elif self.X2 > Y2:
-                self.left2 = max(Y2+1, self.left2)
-
-            if self.left > self.right:
-                self.left, self.right = self.right, self.left
-            if self.left2 > self.right2:
-                self.left2, self.right2 = self.right2, self.left2
 
             self.turn -= 1
             return False
@@ -489,4 +478,5 @@ class Hint():
                 self.message.append(f"Được +{F//2}lượt")
             else:
                 self.message.append("Ngoài số tiền cho phép")
+
         return "\n".join(self.message)
