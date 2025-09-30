@@ -108,13 +108,9 @@ class Hai_khoang(Stage):    #dùng cho màn 4
 
             #Các loại thông báo:
             if arr[0] == 2:
-                self.left = max(Y+1, self.left)
-                self.left2 = max(Y2+1, self.left2)
                 self.status = f"Cả {Y} và {Y2} đều nhỏ hơn số cần đoán"
 
             elif arr[2] == 2:
-                self.right = min(Y-1, self.right)
-                self.right2 = min(Y2-1, self.right2)
                 self.status = f"Cả {Y} và {Y2} đều lớn hơn số cần đoán"
 
             else:
@@ -125,6 +121,21 @@ class Hai_khoang(Stage):    #dùng cho màn 4
 
             if arr[1] == 1:
                 self.status +="\nĐang có 1 số đúng"
+
+            if self.X < Y:
+                self.right = min(Y-1, self.right)
+            elif self.X > Y:
+                self.left = max(Y+1, self.left)
+
+            if self.X2 < Y2:
+                self.right2 = min(Y2-1, self.right2)
+            elif self.X2 > Y2:
+                self.left2 = max(Y2+1, self.left2)
+
+            if self.left > self.right:
+                self.left, self.right = self.right, self.left
+            if self.left2 > self.right2:
+                self.left2, self.right2 = self.right2, self.left2
 
             self.turn -= 1
             return False
