@@ -12,7 +12,7 @@ SCREEN_W, SCREEN_H = 1280, 720
 SCREEN = pygame.display.set_mode((SCREEN_W, SCREEN_H))
 pygame.display.set_caption("Guess a Number - GUI")
 
-BG = pygame.image.load("Background.png")
+BG = pygame.image.load("Background.jpg")
 FONT_PATH = "DejaVuSans.ttf"
 
 # -------------------------
@@ -464,3 +464,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
